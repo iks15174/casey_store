@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Casey Store</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet"
+href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <nav class="nav w-50 p-3">
+    <a class="nav-link" href="/">HOME</a>
+    <a class="nav-link" href="/do_claim?store=<%=data[0].name%>">DO CLAIM</a>
+    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  </nav>
+
+  <div class="col-lg-12 text-center p-5">
+    <h1 class="mt-5 text-primary">CASEY STORE</h1>
+    <div class="container mt-5 pt-5">
+      <%for(var i = 0; i< data.length; i++ ){%>
+        <div class="card bg-light">
+          <div class="card-body text-center p-5">
+            <h1 class="card-title"><%= data[i].name%></h1>
+            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].place%></h3>
+            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].time%></h3>
+            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].tel%></h3>
+            <p class="card-text display-4"><%= data[i].description%></p>
+          </div>
+        </div>
+      <%}%>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+</body>
+
+</html>

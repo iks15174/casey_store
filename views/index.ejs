@@ -20,6 +20,14 @@ crossorigin="anonymous">
 
 <body>
 
+<<<<<<< HEAD
+=======
+  <nav class="nav w-50 p-3">
+    <a class="nav-link" href="/do_claim">DO CLAIM</a>
+    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  </nav>
+
+>>>>>>> 1ae99f4... add store detail file
   <div class="container">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -32,6 +40,7 @@ crossorigin="anonymous">
       </div>
       <div class="col-lg-12 text-center dropdown show">
         <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+<<<<<<< HEAD
           Dropdown link
         </a>
 
@@ -39,6 +48,15 @@ crossorigin="anonymous">
           <a class="dropdown-item" href="#">Action</a>
           <a class="dropdown-item" href="#">Another action</a>
           <a class="dropdown-item" href="#">Something else here</a>
+=======
+          Store
+        </a>
+
+        <div class="col-lg-12 text-center dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <%for(var i=0; i<name.length; i++){%>
+            <a class="dropdown-item" href="detail/<%= name[i]%>"><%= name[i]%></a>
+          <%}%>
+>>>>>>> 1ae99f4... add store detail file
         </div>
       </div>
     </div>
