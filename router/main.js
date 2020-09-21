@@ -1,12 +1,33 @@
-module.exports = function(app, db, store_data, store_schema)
+module.exports = function(app, db, store_data, store_schema, tempstore_schema)
 {
      app.get('/',function(req,res){
       res.render('index.ejs', {name : store_data.name})
      });
 
-     app.get('/do_claim/:store',function(req,res){
-       var store = req.params.store
-       res.send('hello');
+     app.get('/do_claim',function(req,res){
+       var store = req.query.store
+       console.log(store);
+       res.render('do_claim.ejs', {store : store, store_schema : store_schema, store_data : store_data});
+     });
+
+     app.post('/do_claim', function(req, res, next){
+
+       var name = req.body.casey_store;
+       var place = req.body.place;
+       var time = req.body.time;
+       var tel = req.body.tel;
+       var description = req.body.description;
+
+       var sql = `INSERT INTO temstore (name, place, time, tel, description) VALUES ("${name}", "${place}", "${time}", "${tel}", "${description}")`;
+
+       db.run(sql, function(err){
+         if(err){
+           console.log(err.message);
+           next(err);
+         }
+         res.redirect('/claim_list');
+       });
+
      });
 
      app.get('/detail/:store',function(req, res){
@@ -18,21 +39,12 @@ module.exports = function(app, db, store_data, store_schema)
            return;
          }
          else{
-           console.log(rows);
            res.render('store_detail.ejs', {data : rows});
          }
        })
      });
 
-     app.get('/new/:store',function(req,res){
-       res.send('hello');
-     });
-
-     app.get('/claim_list/:store',function(req,res){
-       res.send('hello');
-     })
-
-     app.get('/update/:store/:id',function(req,res){
+     app.get('/claim_list',function(req,res){
        res.send('hello');
      });
 }
