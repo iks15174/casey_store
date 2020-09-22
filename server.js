@@ -28,9 +28,13 @@ const create_temstore_table = require('./database/temstore_setting').create_tabl
 
 const router = require('./router/main')(app, db, store_data, store_schema, temstore_schema);
 
-app.use(function (err, req, res, next) {            
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500).send({
+    error: {
+      status: err.status || 500,
+      message: err.message || "Internal Server Error",
+    },
+  });
 });
 
 var server = app.listen(3000, function(){
