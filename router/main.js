@@ -1,12 +1,55 @@
-module.exports = function(app, db, store_data, store_schema, tempstore_schema)
+module.exports = function(app, pool, store_data, store_schema, tempstore_schema)
 {
      app.get('/',function(req,res, next){
-      res.render('index.ejs', {name : store_data.name})
+       pool.getConnection(function(err, con){
+         if(err){
+           console.log(err.message);
+           next(err);
+         }
+         else{
+           var sql = "SELECT * FROM store"
+           con.query(sql,[], function(err,result){
+             if(err){
+               console.log(err.message);
+               con.release();
+               next(err);
+             }
+             else{
+               con.release();
+               var name = [];
+               for(var i = 0; i < result.length; i ++){
+                 name.push(result[i].name);
+               }
+               res.render('index.ejs', {name : name});
+               return;
+             }
+           })
+         }
+       })
      });
 
      app.get('/do_claim',function(req, res, next){
-       var store = req.query.store
-       res.render('do_claim.ejs', {store : store, temstore_schema : store_schema, store_data : store_data});
+       var store = req.query.store;
+       pool.getConnection(function(err, con){
+         if(err){
+           console.log(err.message);
+           next(err);
+         }
+         else{
+           var sql = "SELECT * FROM store";
+           con.query(sql, [], function(err, result){
+             if(err){
+               console.log(err.message);
+               con.release();
+               return;
+             }
+             else{
+               con.release();
+               res.render('do_claim.ejs', {store : store, temstore_schema : store_schema, store_data : result});
+             }
+           })
+         }
+       });
      });
 
      app.post('/do_claim', function(req, res, next){
@@ -17,17 +60,27 @@ module.exports = function(app, db, store_data, store_schema, tempstore_schema)
        var time = req.body.time;
        var tel = req.body.tel;
        var description = req.body.description;
+       var sql = `INSERT INTO temstore (title, name, place, time, tel, description) VALUES (?, ?, ?, ?, ?, ?);`;
 
-       var sql = `INSERT INTO temstore (title, name, place, time, tel, description) VALUES ("${title}", "${name}", "${place}", "${time}", "${tel}", "${description}")`;
-
-       db.run(sql, function(err){
+       pool.getConnection(function(err, con){
          if(err){
            console.log(err.message);
            next(err);
          }
-         res.redirect('/claim_list');
-       });
-
+         else{
+           con.query(sql, [title, name, place, time, tel, description], function(err, result){
+             if(err){
+               console.log(err.message);
+               con.release();
+               next(err);
+             }
+             else{
+               con.release();
+               res.redirect('/claim_list');
+             }
+           })
+         }
+       })
      });
 
      app.get('/detail/:store',function(req, res, next){
@@ -46,15 +99,25 @@ module.exports = function(app, db, store_data, store_schema, tempstore_schema)
 
      app.get('/claim_list',function(req,res, next){
        var sql = "SELECT * FROM temstore ORDER BY created DESC";
-       db.all(sql, [], function(err, rows){
+       pool.getConnection(function(err, con){
          if(err){
            console.log(err.message);
            next(err);
          }
          else{
-           res.render('claim_list.ejs', {data : rows, name : store_data.name});
+           con.query(sql, [], function(err, result){
+             if(err){
+               console.log(err.message);
+               con.release();
+               next(err);
+             }
+             else{
+               con.release();
+               res.render('claim_list.ejs', {data : result, name : store_data.name});
+             }
+           })
          }
-       });
+       })
      });
 
      app.get('/claim_detail/:id', function(req, res, next){

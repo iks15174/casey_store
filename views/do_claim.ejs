@@ -35,10 +35,10 @@ crossorigin="anonymous">
         <label for="Casey_Store">Casey Store</label>
         <select class="form-control" id="casey_store" name="casey_store">
           <%for(var i = 0; i < store_data.length; i++){%>
-            <%if(store_data.name[i]==store){%>
-              <option id="<%= store_data.name[i]%>" selected="selected"><%= store_data.name[i]%></option>
+            <%if(store_data[i].name==store){%>
+              <option id="<%= store_data[i].name%>" selected="selected"><%= store_data[i].name%></option>
             <%} else{ %>
-              <option id="<%= store_data.name[i]%>"><%= store_data.name[i]%></option>
+              <option id="<%= store_data[i].name%>"><%= store_data[i].name%></option>
             <%}%>
           <%}%>
           <option>others</option>
