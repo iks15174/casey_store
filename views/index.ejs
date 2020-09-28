@@ -41,7 +41,7 @@ crossorigin="anonymous">
         </a>
         <div class="col-lg-12 text-center dropdown-menu" aria-labelledby="dropdownMenuLink">
           <%for(var i=0; i<name.length; i++){%>
-            <a class="dropdown-item" href="detail/<%= name[i]%>"><%= name[i]%></a>
+            <a class="dropdown-item" href="detail/<%= name[i].name%>"><%= name[i].name%></a>
           <%}%>
         </div>
       </div>

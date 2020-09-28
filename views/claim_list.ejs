@@ -29,7 +29,7 @@ crossorigin="anonymous">
     <select class="form-control" id="claim_list" name="claim_list" onchange="LoadSearchResult();">
       <option value="" selected disabled>Search by Store Name...</option>
       <%for(var i = 0; i < name.length; i++){%>
-        <option id="<%= name[i]%>"><%= name[i]%></option>
+        <option id="<%= name[i].name%>"><%= name[i].name%></option>
       <%}%>
       <option>others</option>
       <option>ALL</option>

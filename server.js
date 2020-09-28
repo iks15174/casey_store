@@ -3,9 +3,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const database = require('./config/database');
-const store_data = require('./database/store_data');
 const store_schema = require('./database/store_schema');
 const temstore_schema = require('./database/temstore_schema');
+const get_store_name = require('./database/get_store_name');
+const getConnection = get_store_name.getConnection;
+const getStoreName = get_store_name.getStoreName;
+const store_name = [];
 
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
@@ -24,18 +27,35 @@ const pool = mysql.createPool({
 //const create_store_table = require('./database/store_setting').create_table(db);
 //const create_temstore_table = require('./database/temstore_setting').create_table(db);
 
+getConnection(pool).then(function(con){
+  return getStoreName(con, store_name);
+}).catch(function(err){
+  next(err);
+}).then(function(status){
+  const main = require('./router/main')(app, pool, store_name, store_schema, temstore_schema);
+  const claim = require('./router/claim')(app, pool, store_name, store_schema, temstore_schema);
+  const ajax = require('./router/ajax')(app, pool);
 
-const router = require('./router/main')(app, pool, store_data, store_schema, temstore_schema);
-
-app.use(function (err, req, res, next) {
-  res.status(err.status || 500).send({
-    error: {
-      status: err.status || 500,
-      message: err.message || "Internal Server Error",
-    },
+  app.use(function(req, res, next){
+    res.status(404).send({
+      status : 404,
+      error : 'Not Found'
+    });
+    next(error);
   });
-});
 
-var server = app.listen(3000, function(){
-    console.log("Express server has started on port 3000")
+  app.use(function (err, req, res, next) {
+    res.status(err.status || 500).send({
+      error: {
+        status: err.status || 500,
+        message: err.message || "Internal Server Error",
+      },
+    });
+  });
+
+  var server = app.listen(3000, function(){
+      console.log("Express server has started on port 3000")
+  });
+}).catch(function(err){
+  next(err);
 });
