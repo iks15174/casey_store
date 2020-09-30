@@ -10,6 +10,7 @@ const getConnection = get_store_name.getConnection;
 const getStoreName = get_store_name.getStoreName;
 const passport = require('passport');
 const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy;
 const store_name = [];
 
 app.set('views', __dirname + '/views');
@@ -20,11 +21,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({
   resave : false,
-  saveUninitialized : false,
+  saveUninitialized : true,
   secret : "12%#$HGJ1231*^%&12", //need to change env variable
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function (req, res, next) {
+  res.locals.login = req.isAuthenticated();
+  next();
+});
 
 
 

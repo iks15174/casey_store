@@ -27,8 +27,14 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema,
            }
          })
        }
-     )
+     )(req, res, next);
    }
  );
+
+ app.get('/logout', function(req, res, next){
+   req.logout();
+   res.redirect('/');
+ })
+
 
 }

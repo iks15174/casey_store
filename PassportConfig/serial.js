@@ -20,7 +20,7 @@ module.exports = function(passport, pool){
           })
         }
       })
-    })
+    });
 
     strategy(passport, pool);
 }

@@ -1,11 +1,13 @@
 const LocalStrategy = require('passport-local').Strategy;
+const hash_iter = 108236;
+const crypto = require('crypto');
+
 module.exports = function(passport, pool){
   passport.use(new LocalStrategy({
   usernameField: 'id',
   passwordField: 'pwd'
   },
   function(username, password, done) {
-    console.log("here is local auth Strategy");
     var sql = "SELECT * FROM admin_user where id = ?";
     pool.getConnection(
       function(err, con){
@@ -22,10 +24,14 @@ module.exports = function(passport, pool){
             if(!result[0]){
               return done(null, false, { message: 'Incorrect username.' });
             }
-            if(result[0].pwd !== password){
-              return done(null, false, { message: 'Incorrect password.' });
-            }
-            return done(null, user);
+            crypto.pbkdf2(password, result[0].salt, hash_iter, 64, 'sha512', (err, key) => {
+              if(key.toString('base64') === result[0].password){
+                return done(null, result[0]);
+              }
+              else{
+                return done(null, false, { message: 'Incorrect password.' });
+              }
+            });
           })
         }
       })
