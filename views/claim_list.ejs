@@ -20,9 +20,9 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-50 p-3">
-    <a class="nav-link" href="/do_claim">DO CLAIM</a>
-    <a class="nav-link" href="/">HOME</a>
+  <nav class="nav w-100 p-3">
+    <a class="nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="nav-link" href="/main/">HOME</a>
   </nav>
 
   <div class="container p-3 my-1">
@@ -39,7 +39,7 @@ crossorigin="anonymous">
   <div class="container p-3 my-3>
     <ul class="list-group" id="list-group">
       <%for(var i = 0; i < data.length ; i++){%>
-        <a class="list-group-item text-center" href="/claim_detail/<%= data[i].id%>"><%= data[i].title%></a>
+        <a class="list-group-item text-center" href="/claim/detail/<%= data[i].id%>"><%= data[i].title%></a>
         <small><%= data[i].created%></small>
       <%}%>
     </ul>

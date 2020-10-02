@@ -1,6 +1,9 @@
-module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
+const express = require('express');
+const router = express.Router();
+
+module.exports = function(pool, store_name, store_schema, tempstore_schema)
 {
-     app.get('/',function(req, res, next){
+     router.get('/',function(req, res, next){
        var logined = false;
        if(req.user){
          logined = true;
@@ -8,7 +11,7 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
        res.render('index.ejs', {name : store_name, logined : logined});
      });
 
-     app.get('/detail/:store',function(req, res, next){
+     router.get('/detail/:store',function(req, res, next){
        var store = req.params.store;
        pool.getConnection(function(err, con){
          if(err){
@@ -30,4 +33,6 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
          }
        });
      });
+
+     return router;
 }

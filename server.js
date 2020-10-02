@@ -1,5 +1,7 @@
 const express = require('express');
+const methodOverride = require('method-override');
 const app = express();
+const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const database = require('./config/database');
@@ -17,6 +19,7 @@ app.set('views', __dirname + '/views');
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
+app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({
@@ -48,22 +51,28 @@ const PassportConfig = require('./PassportConfig/serial')(passport, pool);
 getConnection(pool).then(function(con){
   return getStoreName(con, store_name);
 }).catch(function(err){
-  next(err);
+  console.log(err);
 }).then(function(status){
-  const main = require('./router/main')(app, pool, store_name, store_schema, temstore_schema);
-  const claim = require('./router/claim')(app, pool, store_name, store_schema, temstore_schema);
-  const login = require('./router/login')(app, pool, store_name, store_schema, temstore_schema, passport);
+  const main = require('./router/main')(pool, store_name, store_schema, temstore_schema);
+  const claim = require('./router/claim')(pool, store_name, store_schema, temstore_schema);
+  const login = require('./router/login')(pool, store_name, store_schema, temstore_schema, passport);
   const ajax = require('./router/ajax')(app, pool);
+  const admin = require('./router/admin')(pool, store_name, store_schema, temstore_schema);
+
+  app.use('/main', main);
+  app.use('/claim', claim);
+  app.use('/login', login);
+  app.use('/admin', admin)
 
   app.use(function(req, res, next){
     res.status(404).send({
       status : 404,
       error : 'Not Found'
     });
-    next(error);
   });
 
   app.use(function (err, req, res, next) {
+    console.log(err);
     res.status(err.status || 500).send({
       error: {
         status: err.status || 500,
@@ -76,5 +85,5 @@ getConnection(pool).then(function(con){
       console.log("Express server has started on port 3000")
   });
 }).catch(function(err){
-  next(err);
+  console.log(err);
 });

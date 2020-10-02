@@ -1,6 +1,9 @@
-module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
+const express = require('express');
+const router = express.Router();
+
+module.exports = function(pool, store_name, store_schema, tempstore_schema)
 {
-     app.get('/do_claim',function(req, res, next){
+     router.get('/do',function(req, res, next){
        var store = req.query.store;
        pool.getConnection(function(err, con){
          if(err){
@@ -24,7 +27,7 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
        });
      });
 
-     app.post('/do_claim', function(req, res, next){
+     router.post('/do', function(req, res, next){
 
        var title = req.body.title;
        var name = req.body.casey_store;
@@ -48,14 +51,14 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
              }
              else{
                con.release();
-               res.redirect('/claim_list');
+               res.redirect('/claim/list');
              }
            })
          }
        })
      });
 
-     app.get('/claim_list',function(req,res, next){
+     router.get('/list',function(req,res, next){
        var sql = "SELECT * FROM temstore ORDER BY created DESC";
        pool.getConnection(function(err, con){
          if(err){
@@ -78,7 +81,7 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
        })
      });
 
-     app.get('/claim_detail/:id', function(req, res, next){
+     router.get('/detail/:id', function(req, res, next){
        var id = req.params.id;
        var sql = "SELECT * FROM temstore where id = ?";
        pool.getConnection(function(err, con){
@@ -101,4 +104,6 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema)
          }
        })
      });
+
+     return router;
 }

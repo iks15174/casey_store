@@ -1,10 +1,13 @@
-module.exports = function(app, pool, store_name, store_schema, tempstore_schema, passport)
+const express = require('express');
+const router = express.Router();
+
+module.exports = function(pool, store_name, store_schema, tempstore_schema, passport)
 {
-     app.get('/login',function(req, res, next){
+     router.get('/login',function(req, res, next){
        res.render('login.ejs');
      });
 
-     app.post('/login', function(req, res, next){
+     router.post('/login', function(req, res, next){
        passport.authenticate('local', function(err, user, info){
          if(err){
            console.log(err);
@@ -31,10 +34,10 @@ module.exports = function(app, pool, store_name, store_schema, tempstore_schema,
    }
  );
 
- app.get('/logout', function(req, res, next){
+ router.get('/logout', function(req, res, next){
    req.logout();
    res.redirect('/');
- })
+ });
 
-
+ return router;
 }

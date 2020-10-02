@@ -20,12 +20,13 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-50 p-3">
-    <a class="nav-link" href="/do_claim">DO CLAIM</a>
-    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  <nav class="nav w-100 p-3">
+    <a class="p-2 nav-link" href="/main/">HOME</a>
+    <a class="nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="nav-link" href="/claim/list">CLAIM LIST</a>
   </nav>
 
-  <form action="/login" method="post" name="frm_login" id="frm_login">
+  <form action="/login/login" method="post" name="frm_login" id="frm_login">
     <input type="text" name="id" />
     <input type="password" name="pwd"/>
     <input type="submit"  value="Login"/>

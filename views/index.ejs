@@ -20,13 +20,13 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-50 p-3">
-    <a class="nav-link" href="/do_claim">DO CLAIM</a>
-    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  <nav class="nav w-100 p-3">
+    <a class="nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="nav-link" href="/claim/list">CLAIM LIST</a>
     <%if(logined){%>
-      <a class="nav-link" href="/logout">ADMIN LOGOUT</a>
+      <a class="nav-link" href="/login/logout">ADMIN LOGOUT</a>
     <%} else {%>
-      <a class="nav-link" href="/login">ADMIN LOGIN</a>
+      <a class="nav-link" href="/login/login">ADMIN LOGIN</a>
   <%}%>
   </nav>
 
@@ -46,7 +46,7 @@ crossorigin="anonymous">
         </a>
         <div class="col-lg-12 text-center dropdown-menu" aria-labelledby="dropdownMenuLink">
           <%for(var i=0; i<name.length; i++){%>
-            <a class="dropdown-item" href="detail/<%= name[i].name%>"><%= name[i].name%></a>
+            <a class="dropdown-item" href="/main/detail/<%= name[i].name%>"><%= name[i].name%></a>
           <%}%>
         </div>
       </div>

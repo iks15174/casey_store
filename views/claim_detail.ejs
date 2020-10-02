@@ -20,14 +20,16 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-50 p-3">
-    <a class="nav-link" href="/">HOME</a>
-    <a class="nav-link" href="/do_claim">DO CLAIM</a>
-    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  <nav class="d-flex nav w-100 p-3">
+    <a class="p-2 nav-link" href="/main/">HOME</a>
+    <a class="p-2 nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
+    <a class="ml-auto p-2 nav-link" href="" onclick="sendDelete(event, <%= data.id%>)">DELETE</a>
+    <a class="nav-link" href="/admin/claim/update/<%= data.id%>">UPDATE</a>
   </nav>
 
   <div class="col-lg-12 text-center p-5">
-    <h3 class="mt-5 text-primary"><%= data.title%></h1>
+    <h3 class="mt-5 text-secondary"><%= data.title%></h1>
     <div class="container mt-5 pt-5">
       <div class="card bg-light">
         <div class="card-body text-center p-5">
@@ -47,5 +49,12 @@ crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
 </body>
-
+<script>
+  function sendDelete(event, id){
+    event.preventDefault();
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("DELETE", `/admin/claim/delete/${id}`, true);
+    xhttp.send();
+  }
+</script>
 </html>

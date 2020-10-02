@@ -20,10 +20,12 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-50 p-3">
-    <a class="nav-link" href="/">HOME</a>
-    <a class="nav-link" href="/do_claim?store=<%=data[0].name%>">DO CLAIM</a>
-    <a class="nav-link" href="/claim_list">CLAIM LIST</a>
+  <nav class="d-flex nav w-100 p-3">
+    <a class="p-2 nav-link" href="/main/">HOME</a>
+    <a class="p-2 nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
+    <a class="ml-auto p-2 nav-link" href="/admin/store/delete/<%= data[0].id%>">DELETE</a>
+    <a class="nav-link" href="/admin/store/update/<%= data[0].id%>">UPDATE</a>
   </nav>
 
   <div class="col-lg-12 text-center p-5">
