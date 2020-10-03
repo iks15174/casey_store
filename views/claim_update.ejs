@@ -20,54 +20,58 @@ crossorigin="anonymous">
 
 <body>
 
-  <nav class="nav w-100 p-3">
-    <a class="nav-link" href="/main/">HOME</a>
-    <a class="nav-link" href="/claim/list">CLAIM LIST</a>
+  <nav class="d-flex nav w-100 p-3">
+    <a class="p-2 nav-link" href="/main/">HOME</a>
+    <a class="p-2 nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
   </nav>
 
-  <form method="post" action="/claim/do">
+  <form method="post" action="/admin/claim/update/<%= rows.id%>?_method=PUT">
     <div class="container p-3 my-3">
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" id="title" name='title' placeholder="Enter title">
+        <input type="text" class="form-control" id="title" name='title' value=<%= rows.title%>>
       </div>
       <div class="form-group">
         <label for="Casey_Store">Casey Store</label>
         <select class="form-control" id="casey_store" name="casey_store">
-          <%for(var i = 0; i < store_data.length; i++){%>
-            <%if(store_data[i].name===store){%>
-              <option id="<%= store_data[i].name%>" selected="selected"><%= store_data[i].name%></option>
+          <%for(var i = 0; i < store_name.length; i++){%>
+            <%if(store_name[i]===rows.name){%>
+              <option id="<%= store_name[i]%>" selected="selected"><%= store_name[i]%></option>
             <%} else{ %>
-              <option id="<%= store_data[i].name%>"><%= store_data[i].name%></option>
+              <option id="<%= store_name[i]%>"><%= store_name[i]%></option>
             <%}%>
           <%}%>
-          <option>others</option>
+          <%if(rows.name==="others"){%>
+            <option selected="selected">others</option>
+          <%} else{%>
+            <option>others</option>
+          <%}%>
         </select>
       </div>
       <div class="form-group">
         <label for="place">Where is the store</label>
-        <input type="text" class="form-control" id="place" name='place' placeholder="Enter place">
+        <input type="text" class="form-control" id="place" name='place' value=<%= rows.place%>>
       </div>
       <div class="form-group">
         <label for="time">Write open time and close time</label>
-        <input type="text" class="form-control" id="time" name='time' placeholder="Enter time">
+        <input type="text" class="form-control" id="time" name='time' value=<%= rows.time%>>
       </div>
       <div class="form-group">
         <label for="place">What is the store telephon number</label>
-        <input type="text" class="form-control" id="tel" name='tel' placeholder="Enter tel">
+        <input type="text" class="form-control" id="tel" name='tel' value=<%= rows.tel%>>
       </div>
       <div class="form-group">
         <label for="place">Write more detail about store</label>
-        <input type="text" class="form-control" id="description" name='description'placeholder="Enter description">
+        <input type="text" class="form-control" id="description" name='description' value=<%= rows.description %>>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-
 
   <!-- Bootstrap core JavaScript -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-</body>
 
+</body>
 </html>

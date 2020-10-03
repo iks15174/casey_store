@@ -27,6 +27,7 @@ app.use(session({
   saveUninitialized : true,
   secret : "12%#$HGJ1231*^%&12", //need to change env variable
 }));
+app.use(methodOverride('_method'));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function (req, res, next) {

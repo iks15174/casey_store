@@ -48,25 +48,7 @@ crossorigin="anonymous">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <script>
-  function LoadSearchResult(){
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function(){
-      if (this.readyState == 4 && this.status == 200) {
-        var data = JSON.parse(this.responseText);
-        var str = "";
-        for(var i = 0; i < data.length; i++){
-          str = str + `<a class="list-group-item text-center" href="/claim_detail/${data[i].id}">${data[i].title}</a>
-          <small>${data[i].created}</small>`
-        }
-        document.getElementById("list-group").innerHTML = str;
-      }
-    }
-    var select = document.getElementById("claim_list").value;
-    xhttp.open("GET", `/search_list?name=${select}`);
-    xhttp.send();
-  }
-  </script>
+  <script src="/js/claim_list.js"></script>
 </body>
 
 </html>

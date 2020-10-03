@@ -3,8 +3,6 @@ module.exports = function(req, res, next){
     return next();
   }
   else{
-    res.json({
-      logined : false
-    });
+    res.redirect('/login/login');
   }
 }

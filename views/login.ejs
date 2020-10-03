@@ -29,6 +29,7 @@ crossorigin="anonymous">
   <form action="/login/login" method="post" name="frm_login" id="frm_login">
     <input type="text" name="id" />
     <input type="password" name="pwd"/>
+    <input type="hidden" id="previous" name="previous" value=<%= previous%>/>
     <input type="submit"  value="Login"/>
   </form>
 

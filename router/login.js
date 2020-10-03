@@ -4,10 +4,13 @@ const router = express.Router();
 module.exports = function(pool, store_name, store_schema, tempstore_schema, passport)
 {
      router.get('/login',function(req, res, next){
-       res.render('login.ejs');
+       var previous = req.query.previous;
+       res.render('login.ejs', {previous : previous});
      });
 
      router.post('/login', function(req, res, next){
+       var previous = req.body.previous;
+       console.log(previous);
        passport.authenticate('local', function(err, user, info){
          if(err){
            console.log(err);
@@ -26,7 +29,12 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
              return next(err);
            }
            else{
-             res.redirect('/');
+             if(previous){
+               res.redirect(previous)
+             }
+             else{
+               res.redirect('/main/');
+             }
            }
          })
        }
