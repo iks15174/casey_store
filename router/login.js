@@ -10,7 +10,6 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
 
      router.post('/login', function(req, res, next){
        var previous = req.body.previous;
-       console.log(previous);
        passport.authenticate('local', function(err, user, info){
          if(err){
            console.log(err);
@@ -29,7 +28,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
              return next(err);
            }
            else{
-             if(previous){
+             if(previous!=="/" && previous !== undefined){
                res.redirect(previous)
              }
              else{
@@ -44,7 +43,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
 
  router.get('/logout', function(req, res, next){
    req.logout();
-   res.redirect('/');
+   res.redirect('/main');
  });
 
  return router;

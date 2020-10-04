@@ -22,34 +22,47 @@ crossorigin="anonymous">
 
   <nav class="d-flex nav w-100 p-3">
     <a class="p-2 nav-link" href="/main/">HOME</a>
-    <a class="p-2 nav-link" href="/claim/do">DO CLAIM</a>
+    <a class="p-2 nav-link" href="/claim/do?store=<%= data[0].name%>">DO CLAIM</a>
     <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
-    <a class="ml-auto p-2 nav-link" href="/admin/store/delete/<%= data[0].id%>">DELETE</a>
-    <a class="nav-link" href="/admin/store/update/<%= data[0].id%>">UPDATE</a>
+    <div class="ml-auto p-2 dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ADMIN
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <a class="dropdown-item nav-link" href="" onclick="sendDelete(event, <%= data[0].name%>)" type="button">DELETE</a>
+        <a class="dropdown-item" href="/admin/store/update/<%= data[0].id%>" type="button">UPDATE</a>
+      </div>
+    </div>
   </nav>
 
-  <div class="col-lg-12 text-center p-5">
-    <h1 class="mt-5 text-primary">CASEY STORE</h1>
-    <div class="container mt-5 pt-5">
-      <%for(var i = 0; i< data.length; i++ ){%>
-        <div class="card bg-light">
-          <div class="card-body text-center p-5">
-            <h1 class="card-title"><%= data[i].name%></h1>
-            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].place%></h3>
-            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].time%></h3>
-            <h3 class="card-subtitle mb-2 text-muted"><%= data[i].tel%></h3>
-            <p class="card-text display-4"><%= data[i].description%></p>
-          </div>
-        </div>
-      <%}%>
+  <div class="container p-3 my-3">
+    <div class="form-group">
+      <label for="title">Store</label>
+      <input type="text" class="form-control" id="title" name='title' value="<%= data[0].name%>" disabled>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="place">Place</label>
+      <input type="text" class="form-control" id="place" name='place' value="<%= data[0].place%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="time">Open time and Close time</label>
+      <input type="text" class="form-control" id="time" name='time' value="<%= data[0].time%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="place">Telephon number</label>
+      <input type="text" class="form-control" id="tel" name='tel' value="<%= data[0].tel%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="place">Desription</label>
+      <input type="text" class="form-control" id="description" name='description' value="<%= data[0].description%>" disabled>
+    </div>
+
 
   <!-- Bootstrap core JavaScript -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
+  <script src="/js/store_detail.js"></script>
 </body>
 
 </html>

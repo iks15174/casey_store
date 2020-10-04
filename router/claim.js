@@ -59,7 +59,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
      });
 
      router.get('/list',function(req,res, next){
-       var sql = "SELECT * FROM temstore ORDER BY created DESC";
+       var sql = "SELECT id, title, name, date_format(created, \"\%Y-\%m-\%d \%H:\%i:\%S\") AS created FROM temstore ORDER BY created DESC";
        pool.getConnection(function(err, con){
          if(err){
            console.log(err.message);

@@ -24,24 +24,42 @@ crossorigin="anonymous">
     <a class="p-2 nav-link" href="/main/">HOME</a>
     <a class="p-2 nav-link" href="/claim/do">DO CLAIM</a>
     <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
-    <a class="ml-auto p-2 nav-link" href="" onclick="sendDelete(event, <%= data.id%>)">DELETE</a>
-    <a class="nav-link" href="/admin/claim/update/<%= data.id%>">UPDATE</a>
-  </nav>
-
-  <div class="col-lg-12 text-center p-5">
-    <h3 class="mt-5 text-secondary"><%= data.title%></h1>
-    <div class="container mt-5 pt-5">
-      <div class="card bg-light">
-        <div class="card-body text-center p-5">
-          <h1 class="card-title"><%= data.name%></h1>
-          <h3 class="card-subtitle mb-2 text-muted"><%= data.place%></h3>
-          <h3 class="card-subtitle mb-2 text-muted"><%= data.time%></h3>
-          <h3 class="card-subtitle mb-2 text-muted"><%= data.tel%></h3>
-          <p class="card-text display-4"><%= data.description%></p>
-        </div>
+    <div class="ml-auto p-2 dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ADMIN
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <a class="dropdown-item nav-link" href="" onclick="sendDelete(event, <%= data.id%>) type="button">DELETE</a>
+        <a class="dropdown-item" href="/admin/claim/update/<%= data.id%>?previous=/claim/detail/<%= data.id%>" type="button">UPDATE</a>
       </div>
     </div>
-  </div>
+  </nav>
+
+  <div class="container p-3 my-3">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" name='title' value="<%= data.title%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="title">Store</label>
+      <input type="text" class="form-control" id="name" name='name' value="<%= data.name%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="place">Place</label>
+      <input type="text" class="form-control" id="place" name='place' value="<%= data.place%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="time">Open time and Close time</label>
+      <input type="text" class="form-control" id="time" name='time' value="<%= data.time%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="place">Telephon number</label>
+      <input type="text" class="form-control" id="tel" name='tel' value="<%= data.tel%>" disabled>
+    </div>
+    <div class="form-group">
+      <label for="place">Desription</label>
+      <input type="text" class="form-control" id="description" name='description' value="<%= data.description%>" disabled>
+    </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

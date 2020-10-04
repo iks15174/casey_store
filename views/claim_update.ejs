@@ -26,7 +26,7 @@ crossorigin="anonymous">
     <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
   </nav>
 
-  <form method="post" action="/admin/claim/update/<%= rows.id%>?_method=PUT">
+  <form method="post" action="/admin/claim/update/<%= rows.id%>?_method=PUT&previous=/claim/detail/<%= rows.id%>">
     <div class="container p-3 my-3">
       <div class="form-group">
         <label for="title">Title</label>
@@ -37,9 +37,9 @@ crossorigin="anonymous">
         <select class="form-control" id="casey_store" name="casey_store">
           <%for(var i = 0; i < store_name.length; i++){%>
             <%if(store_name[i]===rows.name){%>
-              <option id="<%= store_name[i]%>" selected="selected"><%= store_name[i]%></option>
+              <option id="<%= store_name[i].name%>" selected="selected"><%= store_name[i].name%></option>
             <%} else{ %>
-              <option id="<%= store_name[i]%>"><%= store_name[i]%></option>
+              <option id="<%= store_name[i].name%>"><%= store_name[i].name%></option>
             <%}%>
           <%}%>
           <%if(rows.name==="others"){%>
