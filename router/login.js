@@ -5,6 +5,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
 {
      router.get('/login',function(req, res, next){
        var previous = req.query.previous;
+       if(req.session.login >= 3) res.redirect('/main/')
        res.render('login.ejs', {previous : previous});
      });
 
@@ -17,10 +18,11 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
          }
 
          if(!user){
-           return res.status(403).json({
-             info,
-             result: '로그인 실패'
-           });
+           if(req.session.login >= 1) req.session.login += 1;
+           else req.session.login = 1;
+           if(req.session.login >= 3) res.redirect('/main/')
+           else res.redirect('/login/login');
+
          }
 
          return req.login(user, function(err){
@@ -28,6 +30,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
              return next(err);
            }
            else{
+             req.session.login = 0;
              if(previous!=="/" && previous !== undefined){
                res.redirect(previous)
              }

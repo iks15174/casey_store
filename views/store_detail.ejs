@@ -29,8 +29,8 @@ crossorigin="anonymous">
         ADMIN
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <a class="dropdown-item nav-link" href="" onclick="sendDelete(event, <%= data[0].name%>)" type="button">DELETE</a>
-        <a class="dropdown-item" href="/admin/store/update/<%= data[0].id%>" type="button">UPDATE</a>
+        <a class="dropdown-item nav-link" href="" id="store_detail_delete" data-name="<%=data[0].name%>" type="button">DELETE</a>
+        <a class="dropdown-item" href="/admin/store/update/<%= data[0].id%>?previous=/main/detail/<%= data[0].name%>" type="button">UPDATE</a>
       </div>
     </div>
   </nav>
@@ -59,10 +59,10 @@ crossorigin="anonymous">
 
 
   <!-- Bootstrap core JavaScript -->
+  <script src="/js/store_detail.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-  <script src="/js/store_detail.js"></script>
 </body>
 
 </html>

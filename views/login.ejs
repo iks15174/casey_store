@@ -25,13 +25,20 @@ crossorigin="anonymous">
     <a class="nav-link" href="/claim/do">DO CLAIM</a>
     <a class="nav-link" href="/claim/list">CLAIM LIST</a>
   </nav>
-
-  <form action="/login/login" method="post" name="frm_login" id="frm_login">
-    <input type="text" name="id" />
-    <input type="password" name="pwd"/>
-    <input type="hidden" id="previous" name="previous" value=<%= previous%>/>
-    <input type="submit"  value="Login"/>
-  </form>
+  <div class="container">
+    <form action="/login/login" method="post" name="frm_login" id="frm_login">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input type="text" class="form-control" id="id" name="id">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="pwd" name="pwd">
+      </div>
+      <input type="hidden" id="previous" name="previous" value=<%= previous%>/>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
 
   <!-- Bootstrap core JavaScript -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

@@ -132,16 +132,16 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        })
      })
 
-     router.delete('/store/delete/:id', isAuthenticated, function(req, res, next){
-       var id = req.params.id;
-       var sql = "DELETE FROM store WHERE id = ?";
+     router.delete('/store/delete/:name', isAuthenticated, function(req, res, next){
+       var name = req.params.name;
+       var sql = "DELETE FROM store WHERE name = ?";
        pool.getConnection(function(err, con){
          if(err){
            console.log(err);
            next(err);
          }
          else{
-           con.query(sql, [id], function(err, rows){
+           con.query(sql, [name], function(err, rows){
              if(err){
                con.release();
                console.log(err);
@@ -151,7 +151,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
                con.release();
                var idx = -1;
                for(var i = 0; i < store_name.length; i++){
-                 if(rows[0].name === store_name[i].name){
+                 if(name === store_name[i].name){
                    idx = i;
                    break;
                  }
@@ -167,7 +167,71 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
            })
          }
        })
-     })
+     });
+
+     router.get('/store/update/:id', isAuthenticated_override, function(req, res, next){
+       var id = req.params.id;
+       var sql = "SELECT * FROM store WHERE id = ?";
+       pool.getConnection(function(err, con){
+         if(err){
+           console.log(err);
+           next(err);
+         }
+         else{
+           con.query(sql, [id], function(err, rows){
+             if(err){
+               con.release();
+               console.log(err);
+               next(err);
+             }
+             else{
+               con.release();
+               res.render("store_update.ejs", {rows : rows[0], store_name : store_name});
+             }
+           });
+         }
+       })
+
+     });
+
+     router.put('/store/update/:id', isAuthenticated_override, function(req, res, next){
+       var id = req.params.id;
+       var name = req.body.name;
+       var place = req.body.place;
+       var time = req.body.time;
+       var tel = req.body.tel;
+       var description = req.body.description;
+       var before_name = req.body.before_name;
+
+       var sql = "UPDATE store SET name = ?, place = ?, time = ?, tel = ?, description = ? WHERE id = ?";
+       pool.getConnection(function(err, con){
+         if(err){
+           console.log(err);
+           next(err);
+         }
+         else{
+           con.query(sql, [name, place, time, tel, description, id], function(err, rows){
+             if(err){
+               con.release();
+               console.log(err);
+               next(err);
+             }
+             else{
+               con.release();
+               if(before_name !== name){
+                 for(var i = 0; i < store_name.length; i++){
+                   if(store_name[i].name === before_name){
+                     store_name.splice(i, 1, { name : name });
+                     break;
+                   }
+                 }
+               }
+               res.redirect('/main/detail/'+name);
+             }
+           });
+         }
+       })
+     });
 
      return router;
 }

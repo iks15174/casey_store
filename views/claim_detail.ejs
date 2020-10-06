@@ -29,7 +29,7 @@ crossorigin="anonymous">
         ADMIN
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <a class="dropdown-item nav-link" href="" onclick="sendDelete(event, <%= data.id%>) type="button">DELETE</a>
+        <a class="dropdown-item nav-link" href="" onclick="sendDelete(event, <%= data.id%>)" type="button">DELETE</a>
         <a class="dropdown-item" href="/admin/claim/update/<%= data.id%>?previous=/claim/detail/<%= data.id%>" type="button">UPDATE</a>
       </div>
     </div>
