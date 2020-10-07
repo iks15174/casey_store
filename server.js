@@ -61,6 +61,7 @@ getConnection(pool).then(function(con){
   const ajax = require('./router/ajax')(app, pool);
   const admin = require('./router/admin')(pool, store_name, store_schema, temstore_schema);
 
+  app.use('/', main);
   app.use('/main', main);
   app.use('/claim', claim);
   app.use('/login', login);
