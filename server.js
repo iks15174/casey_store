@@ -40,10 +40,10 @@ app.use(function (req, res, next) {
 
 const pool = mysql.createPool({
   connectionLimit : 8,
-  host : process.env.DATABASE_HOST,
-  user : process.env.DATABASE_USER,
-  password : process.env.DATABASE_PASSWORD,
-  database : process.env.DATABASE_DATABASE,
+  host : process.env.DATABASE_HOST /*|| database.host*/,
+  user : process.env.DATABASE_USER /*|| database.user*/,
+  password : process.env.DATABASE_PASSWORD /*|| database.password*/,
+  database : process.env.DATABASE_DATABASE /*|| database.database*/,
 });
 
 const PassportConfig = require('./PassportConfig/serial')(passport, pool);
