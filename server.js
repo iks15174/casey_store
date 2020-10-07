@@ -27,12 +27,6 @@ app.use(session({
   resave : false,
   saveUninitialized : true,
   secret : "12%#$HGJ1231*^%&12" || process.env.SESSION_SECRET, //need to change env variable
-  cookie :{
-    httpOnly : true,
-    secure : true,
-    sameSite : true,
-    maxAge : 600000
-  },
 }));
 app.use(methodOverride('_method'));
 app.use(passport.initialize());
