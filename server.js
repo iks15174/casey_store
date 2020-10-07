@@ -83,7 +83,7 @@ getConnection(pool).then(function(con){
     });
   });
 
-  var server = app.listen(port, function(){
+  var server = app.listen(process.env.PORT, function(){
       console.log("Express server has started on port 3000")
   });
 }).catch(function(err){
