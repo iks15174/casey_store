@@ -3,18 +3,9 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Casey Store</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet"
-href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-crossorigin="anonymous">
+  <header>
+    <%- include ("./header") %>
+  <header>
 
 </head>
 
@@ -40,21 +31,21 @@ crossorigin="anonymous">
         <input type="text" class="form-control" id="time" name='time' placeholder="Enter time">
       </div>
       <div class="form-group">
-        <label for="place">What is the store telephon number</label>
-        <input type="text" class="form-control" id="tel" name='tel' placeholder="Enter tel">
+        <label for="tel">What is the store telephon number</label>
+        <input type="text" class="form-control" id="tel" name='tel' placeholder="123-1234-1234" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4} | [0-9]{3}-[0-9]{3}-[0-9]{4} | [0-9]{3}-[0-9]{4}">
       </div>
       <div class="form-group">
         <label for="place">Write more detail about store</label>
-        <input type="text" class="form-control" id="description" name='description'placeholder="Enter description">
+        <textarea class="form-control" id="description" name='description'placeholder="Enter description"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
 
   <!-- Bootstrap core JavaScript -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <footer>
+    <%- include ("./footer") %>
+  <footer>
 </body>
 
 </html>

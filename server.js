@@ -4,7 +4,6 @@ const app = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-//const database = require('./config/database');
 const store_schema = require('./database/store_schema');
 const temstore_schema = require('./database/temstore_schema');
 const get_store_name = require('./database/get_store_name');
@@ -13,10 +12,14 @@ const getStoreName = get_store_name.getStoreName;
 const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
+const MySQLStore = require('express-mysql-session')(session);
 const store_name = [];
-const port = 3000 || process.env.PORT;
+const port = process.env.PORT || 3000;
 
 app.set('views', __dirname + '/views');
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -26,7 +29,13 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({
   resave : false,
   saveUninitialized : true,
-  secret : "12%#$HGJ1231*^%&12" || process.env.SESSION_SECRET, //need to change env variable
+  secret : "12%#$HGJ1231*^%&12" || process.env.SESSION_SECRET,
+  store : new MySQLStore({
+    host : process.env.DATABASE_HOST ,
+    user : process.env.DATABASE_USER ,
+    password : process.env.DATABASE_PASSWORD ,
+    database : process.env.DATABASE_DATABASE,
+  })
 }));
 app.use(methodOverride('_method'));
 app.use(passport.initialize());
@@ -36,19 +45,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
 const pool = mysql.createPool({
   connectionLimit : 8,
-  host : process.env.DATABASE_HOST /*|| database.host*/,
-  user : process.env.DATABASE_USER /*|| database.user*/,
-  password : process.env.DATABASE_PASSWORD /*|| database.password*/,
-  database : process.env.DATABASE_DATABASE /*|| database.database*/,
+  host : process.env.DATABASE_HOST ,
+  user : process.env.DATABASE_USER ,
+  password : process.env.DATABASE_PASSWORD ,
+  database : process.env.DATABASE_DATABASE ,
 });
 
 const PassportConfig = require('./PassportConfig/serial')(passport, pool);
-//const create_store_table = require('./database/store_setting').create_table(db);
-//const create_temstore_table = require('./database/temstore_setting').create_table(db);
 
 getConnection(pool).then(function(con){
   return getStoreName(con, store_name);
@@ -84,7 +89,7 @@ getConnection(pool).then(function(con){
     });
   });
 
-  var server = app.listen(process.env.PORT, function(){
+  var server = app.listen(port, function(){
       console.log("Express server has started on port 3000")
   });
 }).catch(function(err){

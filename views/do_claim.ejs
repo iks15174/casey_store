@@ -3,18 +3,9 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Casey Store</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet"
-href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-crossorigin="anonymous">
+  <header>
+    <%- include ("./header") %>
+  <header>
 
 </head>
 
@@ -38,36 +29,48 @@ crossorigin="anonymous">
             <%if(store_data[i].name===store){%>
               <option id="<%= store_data[i].name%>" selected="selected"><%= store_data[i].name%></option>
             <%} else{ %>
-              <option id="<%= store_data[i].name%>"><%= store_data[i].name%></option>
+                <option id="<%= store_data[i].name%>"><%= store_data[i].name%></option>
             <%}%>
           <%}%>
           <option>others</option>
         </select>
       </div>
+      <br></br>
+
       <div class="form-group">
         <label for="place">Where is the store</label>
-        <input type="text" class="form-control" id="place" name='place' placeholder="Enter place">
+        <!--<input type="text" class="form-control" id="place" name='place' placeholder="Enter place">-->
+        <a type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal">
+          Search place
+        </a>
+        <input type="text" class="form-control" id="place" name='place' placeholder="Search place" disabled>
       </div>
+
+      <%- include ("./do_claim/modal") %>
+      <%- include ("./do_claim/time") %>
+
+      <br></br>
+
       <div class="form-group">
-        <label for="time">Write open time and close time</label>
-        <input type="text" class="form-control" id="time" name='time' placeholder="Enter time">
-      </div>
-      <div class="form-group">
-        <label for="place">What is the store telephon number</label>
-        <input type="text" class="form-control" id="tel" name='tel' placeholder="Enter tel">
+        <label for="tel">What is the store telephon number</label>
+        <input type="tel" class="form-control" id="tel" name='tel' placeholder="123-1234-1234" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4} | [0-9]{3}-[0-9]{3}-[0-9]{4} | [0-9]{3}-[0-9]{4}">
       </div>
       <div class="form-group">
         <label for="place">Write more detail about store</label>
-        <input type="text" class="form-control" id="description" name='description'placeholder="Enter description">
+        <textarea class="form-control" id="description" name='description'placeholder="Enter description"></textarea>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
 
   <!-- Bootstrap core JavaScript -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <footer>
+    <%- include ("./footer") %>
+  <footer>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e715bf635c806908c70e37ffb15809f7&libraries=services"></script>
+  <script src="/js/do_claim/map.js"></script>
+  <script src="/js/do_claim/getLocation.js"></script>
+  <script src="/js/do_claim/putPlace.js"></script>
 </body>
 
 </html>

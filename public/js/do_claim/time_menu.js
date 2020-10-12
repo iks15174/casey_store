@@ -1,0 +1,1 @@
+var width = window.innerWidth;
