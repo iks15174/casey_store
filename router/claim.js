@@ -20,7 +20,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
              }
              else{
                con.release();
-               res.render('do_claim.ejs', {store : store, temstore_schema : store_schema, store_data : result});
+               res.render('do_claim.ejs', {store : store, store_data : result});
              }
            })
          }
@@ -32,10 +32,18 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        var title = req.body.title;
        var name = req.body.casey_store;
        var place = req.body.place;
-       var time = req.body.time;
        var tel = req.body.tel;
        var description = req.body.description;
-       var sql = `INSERT INTO temstore (title, name, place, time, tel, description) VALUES (?, ?, ?, ?, ?, ?);`;
+       var mon = req.body.mon;
+       var tue = req.body.tue;
+       var wen = req.body.wen;
+       var thu = req.body.thu;
+       var fri = req.body.fri;
+       var sat = req.body.sat;
+       var sun = req.body.sun;
+
+
+       var sql = `INSERT INTO temstore (title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
        pool.getConnection(function(err, con){
          if(err){
@@ -43,7 +51,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
            next(err);
          }
          else{
-           con.query(sql, [title, name, place, time, tel, description], function(err, result){
+           con.query(sql, [title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun], function(err, result){
              if(err){
                console.log(err.message);
                con.release();

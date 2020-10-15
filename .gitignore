@@ -1,4 +1,4 @@
 config/user_info.js
-config/database.js
+database/database.js
 config/user.js
 /node_modules

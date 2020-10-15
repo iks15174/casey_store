@@ -16,6 +16,12 @@ const MySQLStore = require('express-mysql-session')(session);
 const store_name = [];
 const port = process.env.PORT || 3000;
 
+const data = require('./database/database')
+const host = data.host;
+const user = data.user;
+const password = data.password;
+const database = data.database;
+
 app.set('views', __dirname + '/views');
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist'));
@@ -31,10 +37,10 @@ app.use(session({
   saveUninitialized : true,
   secret : "12%#$HGJ1231*^%&12" || process.env.SESSION_SECRET,
   store : new MySQLStore({
-    host : process.env.DATABASE_HOST ,
-    user : process.env.DATABASE_USER ,
-    password : process.env.DATABASE_PASSWORD ,
-    database : process.env.DATABASE_DATABASE,
+    host : process.env.DATABASE_HOST || host,
+    user : process.env.DATABASE_USER || user,
+    password : process.env.DATABASE_PASSWORD || password,
+    database : process.env.DATABASE_DATABASE|| database,
   })
 }));
 app.use(methodOverride('_method'));
@@ -47,10 +53,10 @@ app.use(function (req, res, next) {
 
 const pool = mysql.createPool({
   connectionLimit : 8,
-  host : process.env.DATABASE_HOST ,
-  user : process.env.DATABASE_USER ,
-  password : process.env.DATABASE_PASSWORD ,
-  database : process.env.DATABASE_DATABASE ,
+  host : process.env.DATABASE_HOST || host,
+  user : process.env.DATABASE_USER || user,
+  password : process.env.DATABASE_PASSWORD || password,
+  database : process.env.DATABASE_DATABASE || database,
 });
 
 const PassportConfig = require('./PassportConfig/serial')(passport, pool);
