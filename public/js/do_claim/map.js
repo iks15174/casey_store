@@ -26,6 +26,10 @@ function searchAddrFromCoords(coords, callback) {
 
 function searchDetailAddrFromCoords(coords) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
+    var lng = document.getElementById('lng');
+    var lat = document.getElementById('lat');
+    lng.value = coords.getLng();
+    lat.value = coords.getLat();
     geocoder.coord2Address(coords.getLng(), coords.getLat(), function (result, status){
       if (status === kakao.maps.services.Status.OK) {
           var detailAddr = !!result[0].road_address ? '<div id="road">도로명주소 : ' + result[0].road_address.address_name + '</div>' : '';

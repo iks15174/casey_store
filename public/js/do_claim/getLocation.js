@@ -5,10 +5,11 @@ function getLocation() {
       map.setCenter(pin);
       searchDetailAddrFromCoords(pin);
     }, function(error) {
-      console.error(error);
+      alert(error.code);
+      alert(error.message);
     }, {
       enableHighAccuracy: false,
-      maximumAge: 0,
+      maximumAge: 10000,
       timeout: Infinity
     });
   } else {

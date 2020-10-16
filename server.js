@@ -16,11 +16,11 @@ const MySQLStore = require('express-mysql-session')(session);
 const store_name = [];
 const port = process.env.PORT || 3000;
 
-const data = require('./database/database')
+/*const data = require('./database/database')
 const host = data.host;
 const user = data.user;
 const password = data.password;
-const database = data.database;
+const database = data.database;*/
 
 app.set('views', __dirname + '/views');
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
