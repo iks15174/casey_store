@@ -51,6 +51,13 @@ app.use(function (req, res, next) {
   res.locals.login = req.isAuthenticated();
   next();
 });
+app.use((req, res, next) => {
+  if (req.header('x-forwarded-proto') !== 'https') {
+    res.redirect(`https://${req.header('host')}${req.url}`)
+  } else {
+    next();
+  }
+});
 
 const pool = mysql.createPool({
   connectionLimit : 8,
@@ -96,14 +103,10 @@ getConnection(pool).then(function(con){
     });
   });
 
-  http.createServer(app, (req, res)=>{
-    res.writeHead(301, {
-      Location : 'https://' + req.headers['host'] + req.url
-    });
-    res.end();
-  }).listen(port, ()=>{
-    console.log('server running on ' + port);
-  })
+  app.listen(port, function () {
+    console.log('Example app listening on port ' + port);
+  });
+
 }).catch(function(err){
   console.log(err);
 });
