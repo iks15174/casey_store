@@ -1,6 +1,7 @@
 const express = require('express');
 const methodOverride = require('method-override');
 const app = express();
+const http = require('http');
 const router = express.Router();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
@@ -95,9 +96,14 @@ getConnection(pool).then(function(con){
     });
   });
 
-  var server = app.listen(port, function(){
-      console.log("Express server has started on port 3000")
-  });
+  http.createServer(app, (req, res)=>{
+    res.writeHead(301, {
+      Location : 'https://' + req.headers['host'] + req.url
+    });
+    res.end();
+  }).listen(port, ()=>{
+    console.log('server running on ' + port);
+  })
 }).catch(function(err){
   console.log(err);
 });
