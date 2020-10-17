@@ -41,9 +41,11 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        var fri = req.body.fri;
        var sat = req.body.sat;
        var sun = req.body.sun;
+       var lng = req.body.lng;
+       var lat = req.body.lat
 
 
-       var sql = `INSERT INTO temstore (title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+       var sql = `INSERT INTO temstore (title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lng, lat) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
        pool.getConnection(function(err, con){
          if(err){
@@ -51,7 +53,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
            next(err);
          }
          else{
-           con.query(sql, [title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun], function(err, result){
+           con.query(sql, [title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lng, lat], function(err, result){
              if(err){
                console.log(err.message);
                con.release();

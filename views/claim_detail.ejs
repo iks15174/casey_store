@@ -38,6 +38,9 @@
     <div class="form-group">
       <label for="place">Place</label>
       <input type="text" class="form-control" id="place" name='place' value="<%= data.place%>" disabled>
+      <input type="hidden" id="lat" name="lat" value="<%= data.lat%>">
+      <input type="hidden" id="lng" name="lng" value="<%= data.lng%>">
+      <div id="map" style="width:100%;height:250px;"></div>
     </div>
 
     <%- include ("./claim_detail/time") %>
@@ -48,7 +51,7 @@
     </div>
     <div class="form-group">
       <label for="place">Desription</label>
-      <textarea class="form-control" id="description" name='description' value="<%= data.description%>" disabled></textarea>
+      <textarea class="form-control" id="description" name='description' disabled><%= data.description%></textarea>
     </div>
 
   <!-- Bootstrap core JavaScript -->
@@ -60,4 +63,6 @@
 <script src='/js/font.js'></script>
 <script src="/js/claim_detail.js"></script>
 <script src="/js/do_claim/time_menu.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e715bf635c806908c70e37ffb15809f7&libraries=services"></script>
+<script src='/js/load_map.js'></script>
 </html>

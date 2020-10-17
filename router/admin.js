@@ -63,18 +63,26 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        var title = req.body.title;
        var name = req.body.casey_store;
        var place = req.body.place;
-       var time = req.body.time;
        var tel = req.body.tel;
        var description = req.body.description;
+       var mon = req.body.mon;
+       var tue = req.body.tue;
+       var wen = req.body.wen;
+       var thu = req.body.thu;
+       var fri = req.body.fri;
+       var sat = req.body.sat;
+       var sun = req.body.sun;
+       var lng = req.body.lng;
+       var lat = req.body.lat;
 
-       var sql = "UPDATE temstore SET title = ?, name = ?, place = ?, time = ?, tel = ?, description = ? WHERE id = ?";
+       var sql = "UPDATE temstore SET title = ?, name = ?, place = ?, tel = ?, description = ?, mon = ?, tue = ?, wen = ?, thu = ?, fri = ?, sat = ?, sun = ?, lng = ?, lat = ? WHERE id = ?";
        pool.getConnection(function(err, con){
          if(err){
            console.log(err);
            next(err);
          }
          else{
-           con.query(sql, [title, name, place, time, tel, description, id], function(err, rows){
+           con.query(sql, [title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lng, lat, id], function(err, rows){
              if(err){
                con.release();
                console.log(err);
