@@ -13,6 +13,13 @@ var geocoder = new kakao.maps.services.Geocoder();
 var marker = new kakao.maps.Marker(), // 클릭한 위치를 표시할 마커입니다
     infowindow = new kakao.maps.InfoWindow({zindex:1}); // 클릭한 위치에 대한 주소를 표시할 인포윈도우입니다
 
+var search_place = document.getElementById('search_place');
+search_place.addEventListener('click', function(){
+  setTimeout(function(){
+    map.relayout();
+  }, 1000);
+})
+
 // 지도를 클릭했을 때 클릭 위치 좌표에 대한 주소정보를 표시하도록 이벤트를 등록합니다
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     searchDetailAddrFromCoords(mouseEvent.latLng);
