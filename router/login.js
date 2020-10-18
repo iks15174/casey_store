@@ -45,6 +45,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
  );
 
  router.get('/logout', function(req, res, next){
+   req.session.login = 0;
    req.logout();
    res.redirect('/main');
  });
