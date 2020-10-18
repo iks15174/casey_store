@@ -31,7 +31,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema, pass
            }
            else{
              req.session.login = 0;
-             if(previous!=="/" && previous !== undefined){
+             if(previous!=="" && previous!==undefined && previous!=="/" && previous !== null){
                res.redirect(previous)
              }
              else{
