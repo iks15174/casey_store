@@ -2,35 +2,22 @@
 <html lang="en">
 
 <head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Casey Store</title>
-
-  <!-- Bootstrap core CSS -->
-  <link rel="stylesheet"
-href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-crossorigin="anonymous">
-
+  <%- include ("./header") %>
 </head>
 
 <body>
 
   <nav class="d-flex nav w-100 p-3">
     <a class="p-2 nav-link" href="/main/">HOME</a>
-    <a class="p-2 nav-link" href="/claim/do?store=<%= data[0].name%>">DO CLAIM</a>
+    <a class="p-2 nav-link" href="/claim/do?store=<%= data.name%>">DO CLAIM</a>
     <a class="p-2 nav-link" href="/claim/list">CLAIM LIST</a>
     <div class="ml-auto p-2 dropdown">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         ADMIN
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-        <a class="dropdown-item nav-link" href="" id="store_detail_delete" data-name="<%=data[0].name%>" type="button">DELETE</a>
-        <a class="dropdown-item nav-link" href="/admin/store/update/<%= data[0].id%>?previous=/main/detail/<%= data[0].name%>" type="button">UPDATE</a>
+        <a class="dropdown-item nav-link" href="" id="store_detail_delete" data-name="<%=data.name%>" type="button">DELETE</a>
+        <a class="dropdown-item nav-link" href="/admin/store/update/<%= data.id%>?previous=/main/detail/<%= data.name%>" type="button">UPDATE</a>
       </div>
     </div>
   </nav>
@@ -38,31 +25,36 @@ crossorigin="anonymous">
   <div class="container p-3 my-3">
     <div class="form-group">
       <label for="title">Store</label>
-      <input type="text" class="form-control" id="title" name='title' value="<%= data[0].name%>" disabled>
+      <input type="text" class="form-control" id="title" name='title' value="<%= data.name%>" disabled>
     </div>
     <div class="form-group">
       <label for="place">Place</label>
-      <input type="text" class="form-control" id="place" name='place' value="<%= data[0].place%>" disabled>
+      <input type="text" class="form-control" id="place" name='place' value="<%= data.place%>" disabled>
+      <input type="hidden" id="lat" name="lat" value="<%= data.lat%>">
+      <input type="hidden" id="lng" name="lng" value="<%= data.lng%>">
+      <div id="map" style="width:100%;height:250px;"></div>
     </div>
-    <div class="form-group">
-      <label for="time">Open time and Close time</label>
-      <input type="text" class="form-control" id="time" name='time' value="<%= data[0].time%>" disabled>
-    </div>
+
+      <%- include ("./claim_detail/time") %>
+
     <div class="form-group">
       <label for="place">Telephon number</label>
-      <input type="text" class="form-control" id="tel" name='tel' value="<%= data[0].tel%>" disabled>
+      <input type="text" class="form-control" id="tel" name='tel' value="<%= data.tel%>" disabled>
     </div>
     <div class="form-group">
       <label for="place">Desription</label>
-      <input type="text" class="form-control" id="description" name='description' value="<%= data[0].description%>" disabled>
+      <textarea class="form-control" id="description" name='description'><%= data.description %></textarea>
     </div>
 
+    <footer>
+      <%- include ("./footer") %>
+    <footer>
+    <script src='/js/font.js'></script>
+    <script src="/js/store_detail.js"></script>
+    <script src="/js/do_claim/time_menu.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e715bf635c806908c70e37ffb15809f7&libraries=services"></script>
+    <script src='/js/load_map.js'></script>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="/js/store_detail.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 </body>
 
 </html>

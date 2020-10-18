@@ -8,7 +8,26 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        if(req.user){
          logined = true;
        }
-       res.render('index.ejs', {name : store_name, logined : logined});
+       pool.getConnection(function(err, con){
+         if(err){
+           console.log(err);
+           next(err);
+         }
+         else{
+           var sql = "SELECT * FROM store ORDER BY created DESC LIMIT 3"
+           con.query(sql, [], function(err, rows){
+             if(err){
+               console.log(err);
+               con.release();
+               next(err);
+             }
+             else{
+               con.release();
+               res.render('index.ejs', {name : store_name, logined : logined, data : rows});
+             }
+           })
+         }
+       })
      });
 
      router.get('/detail/:store',function(req, res, next){
@@ -27,7 +46,8 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
                next(err);
              }
              else{
-               res.render('store_detail.ejs',{data : rows});
+               con.release();
+               res.render('store_detail.ejs',{data : rows[0]});
              }
            })
          }

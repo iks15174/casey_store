@@ -112,11 +112,19 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
      router.post('/store/add', isAuthenticated_override, function(req, res, next){
        var name = req.body.name;
        var place = req.body.place;
-       var time = req.body.time;
        var tel = req.body.tel;
        var description = req.body.description;
+       var mon = req.body.mon;
+       var tue = req.body.tue;
+       var wen = req.body.wen;
+       var thu = req.body.thu;
+       var fri = req.body.fri;
+       var sat = req.body.sat;
+       var sun = req.body.sun;
+       var lat = req.body.lat;
+       var lng = req.body.lng;
 
-       var sql = "INSERT INTO store (name, place, time, tel, description) VALUES (?, ?, ?, ?, ?);";
+       var sql = "INSERT INTO store (name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lat, lng) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
        pool.getConnection(function(err, con){
          if(err){
@@ -124,7 +132,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
            next(err);
          }
          else{
-           con.query(sql, [name, place, time, tel, description], function(err, result){
+           con.query(sql, [name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lat, lng], function(err, result){
              if(err){
                console.log(err);
                con.release();
@@ -206,19 +214,27 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        var id = req.params.id;
        var name = req.body.name;
        var place = req.body.place;
-       var time = req.body.time;
        var tel = req.body.tel;
        var description = req.body.description;
        var before_name = req.body.before_name;
+       var mon = req.body.mon;
+       var tue = req.body.tue;
+       var wen = req.body.wen;
+       var thu = req.body.thu;
+       var fri = req.body.fri;
+       var sat = req.body.sat;
+       var sun = req.body.sun;
+       var lat = req.body.lat;
+       var lng = req.body.lng;
 
-       var sql = "UPDATE store SET name = ?, place = ?, time = ?, tel = ?, description = ? WHERE id = ?";
+       var sql = "UPDATE store SET name = ?, place = ?, tel = ?, description = ?, mon = ?, tue = ?, wen = ?, thu = ?, fri = ?, sat = ?, sun = ?, lat = ?, lng = ? WHERE id = ?";
        pool.getConnection(function(err, con){
          if(err){
            console.log(err);
            next(err);
          }
          else{
-           con.query(sql, [name, place, time, tel, description, id], function(err, rows){
+           con.query(sql, [name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lat, lng, id], function(err, rows){
              if(err){
                con.release();
                console.log(err);

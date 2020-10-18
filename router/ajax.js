@@ -4,10 +4,10 @@ module.exports = function(app, pool)
        var name = req.query.name;
        var sql;
        if(name === "ALL"){
-        sql = `SELECT * FROM temstore ORDER BY created DESC`;
+        sql = `SELECT id, title, date_format(created, \"\%Y-\%m-\%d \%H:\%i:\%S\") AS created FROM temstore ORDER BY created DESC`;
        }
        else{
-         sql = `SELECT * FROM temstore WHERE name = "${name}" ORDER BY created DESC`;
+         sql = `SELECT id, title, date_format(created, \"\%Y-\%m-\%d \%H:\%i:\%S\") AS created FROM temstore WHERE name = "${name}" ORDER BY created DESC`;
        }
        pool.getConnection(function(err, con){
          if(err){

@@ -45,7 +45,7 @@ module.exports = function(pool, store_name, store_schema, tempstore_schema)
        var lat = req.body.lat
 
 
-       var sql = `INSERT INTO temstore (title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lng, lat) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+       var sql = `INSERT INTO temstore (title, name, place, tel, description, mon, tue, wen, thu, fri, sat, sun, lng, lat) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
 
        pool.getConnection(function(err, con){
          if(err){

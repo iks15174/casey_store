@@ -20,29 +20,44 @@
   <%}%>
   </nav>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h1 class="mt-5">CASEY STORE</h1>
-        <p class="lead">Choose the store you wnat to watch</p>
-      </div>
-      <div class="col-lg-12 text-center dropdown show">
-        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Store
-        </a>
-        <div class="col-lg-12 text-center dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <%for(var i=0; i<name.length; i++){%>
-            <a class="dropdown-item" href="/main/detail/<%= name[i].name%>"><%= name[i].name%></a>
-          <%}%>
-        </div>
-      </div>
+  <div class="jumbotron">
+    <div class="container text-center">
+      <h1>CASEY STORE</h1>
+      <p>CLAIM, SEARCH, SHARE</p>
     </div>
   </div>
 
-  <!-- Bootstrap core JavaScript -->
-  <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">-->
+  <div class="container">
+    <div class="row">
+      <%for(var i = 0; i < data.length; i++){%>
+        <div class="col-sm-4">
+          <a class="card text-white bg-light text-primary mb-3" href="/main/detail/<%=data[i].name%>">
+            <div class="card-header"><%= data[i].name%></div>
+            <div class="card-body">
+              <h5 class="card-title">STORE TELEPHONE NUMBER</h5>
+              <p class="card-text"><%= data[i].tel%></p>
+            </div>
+          </a>
+        </div>
+      <%}%>
+    </div>
+  </div>
+  <br><br>
+
+  <footer class="container-fluid text-center">
+    <p>SEE MORE STORE</p>
+    <div class="btn-group dropup text-center">
+      <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        STORE
+      </button>
+      <div class="dropdown-menu text-center">
+        <%for(var i=0; i<name.length; i++){%>
+          <a class="dropdown-item" href="/main/detail/<%= name[i].name%>"><%= name[i].name%></a>
+        <%}%>
+      </div>
+    </div>
+  </footer>
+
   <footer>
     <%- include ("./footer") %>
   <footer>
